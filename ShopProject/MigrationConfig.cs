@@ -49,7 +49,7 @@ namespace ShopProject
                     UserName = email,
                    // Image = "https://cdn.pixabay.com/photo/2017/07/28/23/34/fantasy-picture-2550222_960_720.jpg",
                    // Age = 30,
-                    Phone = "+380957476156",
+                    PhoneNumber = "+380957476156",
                     Description = "PHP programmer"
                 };
                 var result = userManager.CreateAsync(user, "Qwerty1").Result;
@@ -67,7 +67,7 @@ namespace ShopProject
                     UserName = email,
                     //Image = "https://cdn.pixabay.com/photo/2017/07/28/23/34/fantasy-picture-2550222_960_720.jpg",
                     //Age = 30,
-                    Phone = "+380988005535",
+                    PhoneNumber = "+380988005535",
                     Description = "User"
                 };
                 var result = userManager.CreateAsync(user, "Qwerty2").Result;
