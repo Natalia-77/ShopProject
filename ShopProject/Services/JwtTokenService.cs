@@ -47,7 +47,7 @@ namespace ShopProject.Services
             {
                 new Claim("id",user.Id.ToString()),
                 new Claim("name",user.UserName),
-               
+
             };
             foreach (var role in roles)
             {

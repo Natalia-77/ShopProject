@@ -90,7 +90,7 @@ namespace ShopProject
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API");
             });
 
-            MigrationConfig.ApplyMigrations(app.ApplicationServices);
+           MigrationConfig.ApplyMigrations(app.ApplicationServices);
 
             string images = "Photos";
             var directory = Path.Combine(Directory.GetCurrentDirectory(), images);
@@ -105,10 +105,9 @@ namespace ShopProject
                     RequestPath = "/img"
                 });
 
-            app.UseStaticFiles();
+            //app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -117,8 +116,8 @@ namespace ShopProject
                 endpoints.MapControllers();
             });
 
-            app.UseCors(
-           builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+           // app.UseCors(
+           //builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
         }
     }
 }
