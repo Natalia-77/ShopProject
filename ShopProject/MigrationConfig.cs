@@ -24,7 +24,7 @@ namespace ShopProject
             {
                 var roleresult = roleManager.CreateAsync(new AppRole
                 {
-                    Name = userRoleName
+                    Name = userRoleName                    
 
                 }).Result;
             }
