@@ -94,7 +94,7 @@ namespace ShopProject.Controllers
             {
                 Email = model.Email,
                 UserName = model.Email,
-               // Age = model.Age,
+                // Age = model.Age,
                 Phone = model.Phone,
                 Description = model.Description,
             };
