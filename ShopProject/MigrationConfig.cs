@@ -84,6 +84,11 @@ namespace ShopProject
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
                 SeedData(userManager, roleManager);
+
+
+
+
+
                 //var context = serviceScope.ServiceProvider.GetRequiredService<EFContext>();
 
                 //if (!roleManager.Roles.Any())
