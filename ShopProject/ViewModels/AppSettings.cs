@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShopProject.Constants
+namespace ShopProject.ViewModels
 {
-    public class Roles
+    public class AppSettings
     {
-        public const string Admin = "admin";
+        public string Key { get; set; }
     }
 }

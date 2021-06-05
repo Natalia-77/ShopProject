@@ -1,105 +1,58 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+﻿
 using Microsoft.Extensions.DependencyInjection;
-using ShopProject.Constants;
 using ShopProject.Entities;
-using ShopProject.Entities.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ShopProject
 {
     public static class MigrationConfig
     {
-        public static void SeedData(UserManager<AppUser> userManager,
-                  RoleManager<AppRole> roleManager)
+
+
+        public static void ApplyMigrations(IServiceProvider service)
         {
-            var adminRoleName = "Admin";
-            var userRoleName = "User";
+            using var serviceScope = service.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            var context = serviceScope.ServiceProvider.GetRequiredService<EFContext>();
 
-            var roleResult = roleManager.FindByNameAsync(adminRoleName).Result;
-            if (roleResult == null)
+            if (context.Roles.Count() == 0)
             {
-                var roleresult = roleManager.CreateAsync(new AppRole
+                var roles = new Roles
                 {
-                    Name = userRoleName                    
-
-                }).Result;
-            }
-            roleResult = roleManager.FindByNameAsync(userRoleName).Result;
-            if (roleResult == null)
-            {
-                var roleresult = roleManager.CreateAsync(new AppRole
-                {
-                    Name = userRoleName
-
-                }).Result;
-            }
-
-
-            var email = "admin@gmail.com";
-            var findUser = userManager.FindByEmailAsync(email).Result;
-            if (findUser == null)
-            {
-                var user = new AppUser
-                {
-                    Email = email,
-                    UserName = email,
-                   // Image = "https://cdn.pixabay.com/photo/2017/07/28/23/34/fantasy-picture-2550222_960_720.jpg",
-                   // Age = 30,
-                    PhoneNumber = "+380957476156",
-                    Description = "PHP programmer"
+                    Name = "User"
                 };
-                var result = userManager.CreateAsync(user, "Qwerty1").Result;
+                context.Roles.AddRange(roles);
+                context.SaveChanges();
 
-                result = userManager.AddToRoleAsync(user, adminRoleName).Result;
-            }
-
-            email = "user@gmail.com";
-            findUser = userManager.FindByEmailAsync(email).Result;
-            if (findUser == null)
-            {
-                var user = new AppUser
+                var users = new Users
                 {
-                    Email = email,
-                    UserName = email,
-                    //Image = "https://cdn.pixabay.com/photo/2017/07/28/23/34/fantasy-picture-2550222_960_720.jpg",
-                    //Age = 30,
-                    PhoneNumber = "+380988005535",
-                    Description = "User"
+                    FirstName = "Петро",
+                    LastName = "Харитонов",
+                    UserName = "petro",
+                    Password = "qwerty",
+                    Token = "",
+                    RolesId = roles.Id
                 };
-                var result = userManager.CreateAsync(user, "Qwerty2").Result;
+                context.Users.Add(users);
+                context.SaveChanges();
 
-                result = userManager.AddToRoleAsync(user, userRoleName).Result;
-            }
-        }
+                var orders = new Orders
+                {
+                    UsersId = users.Id
+                };
+                context.Orders.Add(orders);
+                context.SaveChanges();
 
-        public static void ApplyMigrations( IServiceProvider service)
-        {
-            using (var serviceScope = service.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-               
-                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
-                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
-                SeedData(userManager, roleManager);
+                var product = new List<Products>
+                {
+                    new Products{Name="Набір олівців",Price=52.7F,Image="jumbo.jpg",OrdersId=orders.Id},
+                    new Products {Name="Фломастери МАРКО",Price=75.2F,Image="marko.jpg",OrdersId=orders.Id}
+                };
+                context.Products.AddRange(product);
+                context.SaveChanges();               
 
-
-
-
-
-                //var context = serviceScope.ServiceProvider.GetRequiredService<EFContext>();
-
-                //if (!roleManager.Roles.Any())
-                //{
-                //    var role = new AppRole
-                //    {
-                //        Name = Roles.Admin
-                //    };
-                //    var result = roleManager.CreateAsync(role).Result;
-                //}                
-                   
 
             }
         }
