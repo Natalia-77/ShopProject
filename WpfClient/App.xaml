@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WpfClient"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ObjectDataProvider x:Key="Photos"/>
     </Application.Resources>
 </Application>
