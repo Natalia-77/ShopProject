@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using ShopProject.Entities.Identity;
 using ShopProject.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,51 +18,51 @@ namespace ShopProject.Services
    
     public interface IJwtTokenService
     {
-        UserModel Authentificate(string user_name, string password);
+        public string Authentificate(AppUser user);
     }
 
     public class JwtTokenService : IJwtTokenService
     {
-        private Claim res { get; set; }
+       
         private readonly AppSettings _appSettings;
-        public JwtTokenService(IOptions<AppSettings>appsettings)
+        private readonly UserManager<AppUser> _userManager;
+        public JwtTokenService(IOptions<AppSettings>appsettings, UserManager<AppUser> userManager)
         {
             _appSettings = appsettings.Value;
+            _userManager = userManager;
         }
-        private List<UserModel> users = new List<UserModel>()
+       
+        public string Authentificate(AppUser appUser)
         {
-            new UserModel
+            
+            var roles = _userManager.GetRolesAsync(appUser).Result;
+            var roleClaims = new List<Claim>()
             {
-                UserId=1,FirstName="Roma",LastName="Petrov",Password="qwerty",UserName="Romkaronka"
-            }
-
-        };
-        public UserModel Authentificate(string username, string password)
-        {
-            var user = users.SingleOrDefault(x => x.UserName == username && x.Password == password);
-
-            if (user == null)
-                return null;
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Key);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.UserId.ToString()),
-                    res=new Claim(ClaimTypes.Role, "Admin")
-                    //new Claim(ClaimTypes.Version, "V 3.1")
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(10),
-                SigningCredentials=new SigningCredentials(new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256)
+                 new Claim("id",appUser.Id.ToString()),
+                 new Claim("name",appUser.UserName)
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
-            user.Role = res.Value;
-           // user.Password = null;
-            return user;
+
+            for (int i = 0; i < roles.Count; i++)
+            {
+                roleClaims.Add(new Claim("roles", roles[i]));
+            }
+           
+            var key = Encoding.ASCII.GetBytes(_appSettings.Key);
+            var signKey = new SymmetricSecurityKey(key);
+            var singCredentials = new SigningCredentials(signKey, SecurityAlgorithms.HmacSha256);
+
+            var jwt = new JwtSecurityToken(
+               signingCredentials: singCredentials,
+               expires: DateTime.Now.AddDays(100),
+               claims: roleClaims
+               );
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
+
         }
+
+        
+
+
 
 
 

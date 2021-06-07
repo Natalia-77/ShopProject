@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ShopProject.Constants;
+using ShopProject.Entities.Identity;
 using ShopProject.Services;
 using ShopProject.ViewModels;
-
+using System.Threading.Tasks;
 
 namespace ShopProject.Controllers
 {
@@ -14,20 +16,35 @@ namespace ShopProject.Controllers
     public class AccountController : ControllerBase
     {
         private IJwtTokenService _tokenService;
-        public AccountController(IJwtTokenService tokenService)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public AccountController(IJwtTokenService tokenService, UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager)
         {
             _tokenService = tokenService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
+
+
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult Post([FromBody]UserModel userModel)
+       // [Authorize(Roles = Roles.Admin)]
+        public async Task<IActionResult> Post([FromBody]UserModel userModel)
         {
-            var user_item = _tokenService.Authentificate(userModel.UserName, userModel.Password);
+            var user = await _userManager.FindByEmailAsync(userModel.Email);
+            if (user == null)
+                return BadRequest("Not Found");
 
-            if (user_item == null)
-                return BadRequest(new {message="Not found user!" });
+            var result = await _signInManager.PasswordSignInAsync(user, userModel.Password, false, false);
+            if (!result.Succeeded)
+                return BadRequest("Not Found");
 
-            return Ok(user_item);
+            return Ok(
+                new
+                {
+                    token = _tokenService.Authentificate(user)
+                });             
 
         }
 

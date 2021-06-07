@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ShopProject.Constants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShopProject.Controllers
-{   // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+{  
 
     [ApiController]
     [Route("[controller]")]
@@ -27,7 +28,7 @@ namespace ShopProject.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles =  "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();
