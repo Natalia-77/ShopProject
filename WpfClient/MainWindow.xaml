@@ -5,14 +5,131 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Name="btn_get_token"
-            Content="Get token" 
-                HorizontalAlignment="Left" 
-                Margin="115,104,0,0"
-                VerticalAlignment="Top" Width="115" 
-                Height="35" Click="Btn_get_token"/>
+        Title="Магазин канцтоварів &quot;Бюрократ&quot;" Height="600" Width="800">
+    <!--<Grid>
+        <Button Name="btn_get_token" Content="Get token" HorizontalAlignment="Left" 
+                Margin="115,104,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Btn_get_token"/>
+    </Grid>-->
+    <Window.Resources>
+        <!-- Main photo catalog view -->
+        <Style TargetType="{x:Type ListBox}" x:Key="PhotoListBoxStyle">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBox}" >
+                        <WrapPanel Margin="5" IsItemsHost="True" Orientation="Horizontal" 
+                       ItemHeight="{Binding ElementName=ZoomSlider, Path='Value'}"
+                       ItemWidth="{Binding ElementName=ZoomSlider, Path='Value'}"
+                       VerticalAlignment="Top" HorizontalAlignment="Stretch" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- For metadata properties pane -->
+        <Style TargetType="{x:Type GroupBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupBox}" >
+                        <Grid>
+                            <Border Background="#AAFFFFFF" CornerRadius="4" BorderBrush="#66000000" BorderThickness="1">
+                                <Border CornerRadius="4" BorderBrush="#88FFFFFF" BorderThickness="1" ClipToBounds="true" >
+                                    <Border CornerRadius="6" BorderThickness="2" BorderBrush="#ABB497">
+                                        <Border.BitmapEffect>
+                                            <BlurBitmapEffect Radius="6" />
+                                        </Border.BitmapEffect>
+                                        <Border CornerRadius="6" BorderThickness="2" BorderBrush="#DEF2AD">
+                                            <Border.BitmapEffect>
+                                                <BlurBitmapEffect Radius="6" />
+                                            </Border.BitmapEffect>
+                                        </Border>
+                                    </Border>
+                                </Border>
+                            </Border>
+                            <ContentPresenter Margin="6" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Headers for metadata properties -->
+        <Style x:Key="MetadataHeader" TargetType="{x:Type Label}">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5" >
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0.5" Color="{x:Static SystemColors.AppWorkspaceColor}" />
+                            <GradientStop Offset="2" Color="Transparent" />
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10" DataContext="{Binding Source={StaticResource Photos}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="250" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ListBox x:Name="productList" 
+                         IsSynchronizedWithCurrentItem="True"
+                         SelectionChanged="productList_SelectionChanged" 
+                         Margin="5"
+                         Style="{StaticResource PhotoListBoxStyle}">
+                    <ListBox.ItemTemplate >
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <Image Width="100" Height="75" Source="{Binding Path=Image}" />
+                                <TextBlock FontSize="16" Text="{Binding Path=Name}" HorizontalAlignment="Center" />
+                                <TextBlock FontSize="12" HorizontalAlignment="Center"> Ціна</TextBlock>
+                                <TextBlock FontSize="16" Text="{Binding Path=Price}" HorizontalAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </GroupBox>
+
+        <!-- Splitter -->
+        <GridSplitter Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="15" Background="Transparent" ShowsPreview="True"/>
+
+        <!-- Right Hand Panel -->
+        <DockPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,0,0">
+            <GroupBox>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                        <Label Style="{StaticResource MetadataHeader}">Назва:</Label>
+                        <TextBlock x:Name="tbName" FontSize="18"  HorizontalAlignment="Center" />
+
+                        <Label Style="{StaticResource MetadataHeader}">Ціна (грн):</Label>
+                        <TextBlock x:Name="tbPrice" FontSize="22" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center" />
+
+                        <Label Style="{StaticResource MetadataHeader}">Опис товару:</Label>
+                        <TextBlock x:Name="tbDescription" TextWrapping="Wrap" FontSize="14"  HorizontalAlignment="Center" />
+
+                        <Label Style="{StaticResource MetadataHeader}">Фото:</Label>
+                        <Image Margin="10" Width="200" Height="200" x:Name="imgPhoto">
+
+                        </Image>
+
+                    </StackPanel>
+                </ScrollViewer>
+            </GroupBox>
+
+        </DockPanel>
 
     </Grid>
+
+
 </Window>

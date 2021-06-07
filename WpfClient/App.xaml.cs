@@ -41,7 +41,7 @@ namespace WpfClient
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            //mainWindow.Show();
             var url = Configuration.GetSection("ServerUrl").Value;
             MessageBox.Show(url);
             
