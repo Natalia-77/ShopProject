@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using ShopProject.Entities;
+using ShopProject.Entities.Identity;
 using ShopProject.Services;
 using ShopProject.ViewModels;
 using System.IO;
@@ -31,6 +33,18 @@ namespace ShopProject
             //Connect to database
             services.AddDbContext<EFContext>(opt => opt
                   .UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<AppUser, AppRole>(options => {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 5;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+            })
+               .AddEntityFrameworkStores<EFContext>()
+               .AddDefaultTokenProviders();
+
+
 
             //Configuration from AppSettings
             var appSettingSection = Configuration.GetSection("AppSettings");
@@ -77,7 +91,7 @@ namespace ShopProject
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API");
             });
 
-           MigrationConfig.ApplyMigrations(app.ApplicationServices);
+          // MigrationConfig.ApplyMigrations(app.ApplicationServices);
 
             string images = "Photos";
             var directory = Path.Combine(Directory.GetCurrentDirectory(), images);
@@ -90,8 +104,8 @@ namespace ShopProject
                 {
                     FileProvider = new PhysicalFileProvider(directory),
                     RequestPath = "/img"
-                });           
-            
+                });
+            app.ApplyMigrations();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

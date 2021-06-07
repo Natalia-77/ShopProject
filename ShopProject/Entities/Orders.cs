@@ -1,4 +1,5 @@
 ﻿
+using ShopProject.Entities.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,9 +14,16 @@ namespace ShopProject.Entities
         public int Id { get; set; }
 
         [ForeignKey("Users")]
-        public int UsersId { get; set; }
+        public long UsersId { get; set; }
 
-        public virtual Users Users { get; set; }
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual AppUser Users { get; set; }
+
+        [ForeignKey("Products")]
+        public int ProductId { get; set; }
+
+        public virtual Products Products { get; set; }
+
+       
+
     }
 }

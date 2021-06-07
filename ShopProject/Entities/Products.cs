@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,11 +19,13 @@ namespace ShopProject.Entities
         public float Price { get; set; }
 
         public string Image { get; set; }
+        public virtual ICollection<Orders> Orders { get; set; }
 
-        [ForeignKey("Orders")]
-        public int OrdersId { get; set; }      
 
-        public virtual Orders Orders { get; set; }
+        //[ForeignKey("Orders")]
+        //public int OrdersId { get; set; }      
+
+        //public virtual Orders Orders { get; set; }
 
     }
 }
