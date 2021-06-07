@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Name="btn_get_token"
+            Content="Get token" 
+                HorizontalAlignment="Left" 
+                Margin="115,104,0,0"
+                VerticalAlignment="Top" Width="115" 
+                Height="35" Click="Btn_get_token"/>
 
     </Grid>
 </Window>

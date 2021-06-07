@@ -15,6 +15,9 @@ namespace ShopProject.Entities
         [Required, StringLength(100)]
         public string Name { get; set; }
 
+        [Required, StringLength(255)]
+        public string Description { get; set; }
+
         [Required]
         public float Price { get; set; }
 
