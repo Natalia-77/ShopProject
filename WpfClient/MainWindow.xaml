@@ -79,7 +79,13 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
+        
+        <WrapPanel DockPanel.Dock="Top" Margin="0,0,0,5">
+            <Button DockPanel.Dock="Left" Content="Контакти" Height="50" Width="150" Margin="10" Name="btnContact" Click="btnContact_Click"/>
+            <Button Content="Кошик" Height="50" Width="150" Margin="10" Name="btnBasket" Click="btnBasket_Click"/>
+            <Button DockPanel.Dock="Right" Content="Вхід" Height="50" Width="150" Margin="10" Name="btnLogin" Click="btnLogin_Click"/>
+        </WrapPanel>
+        
         <GroupBox Grid.Column="0" Grid.Row="1">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                 <ListBox x:Name="productList" 
