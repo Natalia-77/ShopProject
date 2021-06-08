@@ -1,0 +1,27 @@
+﻿<Window x:Class="WpfClient.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfClient"
+        mc:Ignorable="d"
+        Title="Вхід для адміністратора" Height="300" Width="220">
+    <Grid Margin="10" DataContext="{Binding Source={StaticResource Photos}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250" />
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Label Margin="0,20,0,0"> Введіть e-mail:</Label>
+            <TextBox Height="30" x:Name="tbEmail"/>
+            <Label Margin="0,20,0,0"> Введіть пароль:</Label>
+            <TextBox Height="30" x:Name="tbPassword"/>
+            <Button x:Name="btnLogin" Height="40" Width="150" Margin="0,40,0,0" Click="btnLogin_Click">
+                Вхід
+            </Button>
+
+        </StackPanel>
+    </Grid>
+</Window>
