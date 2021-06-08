@@ -8,11 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using ShopProject.Entities;
 using ShopProject.Entities.Identity;
 using ShopProject.Services;
 using ShopProject.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 
@@ -75,7 +79,49 @@ namespace ShopProject
             services.AddScoped<IJwtTokenService, JwtTokenService>();     
 
             services.AddControllers();
-            services.AddSwaggerGen();
+            // services.AddSwaggerGen();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    //Version = "Магазин \"БЮРОКРАТ\"",
+                    Title = "Магазин \"БЮРОКРАТ\"",
+                    Description = " Курсовий проект ASP.NET Core Web API виконаний студентами групи VPU911",
+                    TermsOfService = new Uri("https://example.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Магазин \"БЮРОКРАТ\"",
+                        Email = string.Empty,
+                    },
+
+                });
+
+                c.AddSecurityDefinition("Bearer",
+                     new OpenApiSecurityScheme
+                     {
+                         Description = "JWT Authorization header using the Bearer scheme.",
+                         Type = SecuritySchemeType.Http,
+                         Scheme = "bearer"
+                     });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement{
+                    {
+                        new OpenApiSecurityScheme{
+                            Reference = new OpenApiReference{
+                                Id = "Bearer",
+                                Type = ReferenceType.SecurityScheme
+                            }
+                        },new List<string>()
+                    }
+                });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                if (File.Exists(xmlPath))
+                {
+                    c.IncludeXmlComments(xmlPath);
+                }
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +131,7 @@ namespace ShopProject
             {
                 app.UseDeveloperExceptionPage();
             }
+            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

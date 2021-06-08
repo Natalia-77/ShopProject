@@ -39,28 +39,33 @@ namespace WpfClient
                 new Products { 
                     Name="Олівці",
                     Description = "Різнокольорові олівці відомої фірми Марко (Чехія). Набір 24 кольори. Яскраві, приємні для сприйняття",
-                    Price=35, 
-                    Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\01.jpg" },
+                    Price=35 
+                    //Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\01.jpg"
+                    },
                 new Products { 
                     Name="Набір",
                     Description = "Набір канцелярського приладдя для школярів. Включає кольорові олівці, фломастери, фарби акварельні, гуаші, лінійки, клей",
-                    Price=305, 
-                    Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\02.jpg" },
+                    Price=305
+                   // Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\02.jpg"
+                   },
                 new Products { 
                     Name="Офісне приладдя",
                     Description = "Набір канцтоварів для офісу. До складу входять: олівці, ручки, підставка, блокноти, калькулятор, лінійка",
-                    Price=520, 
-                    Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\03.jpg" },
+                    Price=520 
+                   // Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\03.jpg"
+                   },
                 new Products { 
                     Name="Фломастери",
                     Description = "Набір різнокольорових фломастерів чеської фірми Кох-і-нор. 36 фломастерів відмінної якості з екологічними барвниками",
-                    Price=75, 
-                    Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\04.jpg" },
+                    Price=75 
+                    //Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\04.jpg"
+                    },
                 new Products { 
                     Name="Палички",
                     Description = "Палички для лічби. Призначені для учнів дошкільного та молодшого шкільного віку. 40 штук",
-                    Price=16, 
-                    Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\05.jpg" }
+                    Price=16 
+                    //Image="C:\\Users\\Ba2H\\source\\repos\\WWWShopTest\\WWWShopTest\\images\\05.jpg"
+                    }
             };
             productList.ItemsSource = Products;
         }
@@ -71,8 +76,8 @@ namespace WpfClient
             tbName.Text = prod.Name;
             tbPrice.Text = prod.Price.ToString();
             tbDescription.Text = prod.Description;
-            Uri fileUri = new Uri(prod.Image);
-            imgPhoto.Source = new BitmapImage(fileUri);
+           // Uri fileUri = new Uri(prod.Image);
+           // imgPhoto.Source = new BitmapImage(fileUri);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

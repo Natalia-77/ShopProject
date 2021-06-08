@@ -48,9 +48,7 @@ namespace WpfClient
         }
 
         private void ConfigureServices(IServiceCollection services)
-        {
-            // ...
-            //services.AddTransient(typeof(Configuration));
+        {            
             services.AddTransient(typeof(MainWindow));
         }
 
