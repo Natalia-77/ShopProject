@@ -22,7 +22,8 @@ namespace ShopProject.Entities
         public float Price { get; set; }
 
         public string Image { get; set; }
-        public virtual ICollection<Orders> Orders { get; set; }
+
+       // public virtual ICollection<Orders> Orders { get; set; }
 
 
         //[ForeignKey("Orders")]

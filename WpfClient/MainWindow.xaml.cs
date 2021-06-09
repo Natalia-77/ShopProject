@@ -40,31 +40,31 @@ namespace WpfClient
                     Name="Олівці",
                     Description = "Різнокольорові олівці відомої фірми Марко (Чехія). Набір 24 кольори. Яскраві, приємні для сприйняття",
                     Price=35, 
-                    Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\01.jpg"
+                   // Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\01.jpg"
                     },
                 new Products { 
                     Name="Набір",
                     Description = "Набір канцелярського приладдя для школярів. Включає кольорові олівці, фломастери, фарби акварельні, гуаші, лінійки, клей",
                     Price=305,
-                    Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\02.jpg"
+                    //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\02.jpg"
                    },
                 new Products { 
                     Name="Офісне приладдя",
                     Description = "Набір канцтоварів для офісу. До складу входять: олівці, ручки, підставка, блокноти, калькулятор, лінійка",
                     Price=520,
-                    Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\03.jpg"
+                    //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\03.jpg"
                    },
                 new Products { 
                     Name="Фломастери",
                     Description = "Набір різнокольорових фломастерів чеської фірми Кох-і-нор. 36 фломастерів відмінної якості з екологічними барвниками",
                     Price=75,
-                    Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\04.jpg"
+                    //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\04.jpg"
                     },
                 new Products { 
                     Name="Палички",
                     Description = "Палички для лічби. Призначені для учнів дошкільного та молодшого шкільного віку. 40 штук",
                     Price=16,
-                    Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\05.jpg"
+                    //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\05.jpg"
                     }
             };
             productList.ItemsSource = Products;
@@ -76,8 +76,8 @@ namespace WpfClient
             tbName.Text = prod.Name;
             tbPrice.Text = prod.Price.ToString();
             tbDescription.Text = prod.Description;
-            Uri fileUri = new Uri(prod.Image);
-            imgPhoto.Source = new BitmapImage(fileUri);
+           // Uri fileUri = new Uri(prod.Image);
+            //imgPhoto.Source = new BitmapImage(fileUri);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
