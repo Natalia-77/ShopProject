@@ -31,7 +31,7 @@
 
             
             <Button Name="btnMakeOrder" 
-                    Height="50" Margin="10,10" 
+                    Height="50" Margin="5,10" 
                     Content="Підтвердити замовлення" Click="btnMakeOrder_Click" />
         </StackPanel>
     </DockPanel>
