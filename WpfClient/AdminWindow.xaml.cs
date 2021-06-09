@@ -20,24 +20,24 @@ namespace WpfClient
     /// </summary>
     public partial class AdminWindow : Window
     {
-        private EFContext _context = new EFContext();
+        //private EFContext _context = new EFContext();
         private ObservableCollection<Products> _products = new ObservableCollection<Products>();
 
         public AdminWindow()
         {
             InitializeComponent();
 
-            var list = _context.Products.AsQueryable()
-                .Select(x => new Products()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Description,
-                    Price = x.Price
-                })
-                .ToList();
-            _products = new ObservableCollection<Products>(list);
-            dgSimple.ItemsSource = _products;
+            //var list = _context.Products.AsQueryable()
+            //    .Select(x => new Products()
+            //    {
+            //        Id = x.Id,
+            //        Name = x.Name,
+            //        Description = x.Description,
+            //        Price = x.Price
+            //    })
+            //    .ToList();
+            //_products = new ObservableCollection<Products>(list);
+            //dgSimple.ItemsSource = _products;
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)

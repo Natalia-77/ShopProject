@@ -30,9 +30,9 @@
             </WrapPanel>
 
             
-            <Button Name="btnMakeOrder" 
+            <Button Name="btnConfirmOrder" 
                     Height="50" Margin="5,10" 
-                    Content="Підтвердити замовлення" Click="btnMakeOrder_Click" />
+                    Content="Підтвердити замовлення" Click="btnConfirmOrder_Click"  />
         </StackPanel>
     </DockPanel>
 </Window>

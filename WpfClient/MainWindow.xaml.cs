@@ -111,12 +111,14 @@ namespace WpfClient
 
         private void btnContact_Click(object sender, RoutedEventArgs e)
         {
-
+            ContactUsWindow cuw = new ContactUsWindow();
+            cuw.ShowDialog();
         }
 
         private void btnBasket_Click(object sender, RoutedEventArgs e)
         {
-
+            BasketWindow bw = new BasketWindow();
+            bw.ShowDialog();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)

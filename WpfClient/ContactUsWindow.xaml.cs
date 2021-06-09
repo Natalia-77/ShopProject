@@ -13,18 +13,13 @@ using System.Windows.Shapes;
 namespace WpfClient
 {
     /// <summary>
-    /// Логика взаимодействия для MakeOrderWindow.xaml
+    /// Логика взаимодействия для ContactUsWindow.xaml
     /// </summary>
-    public partial class MakeOrderWindow : Window
+    public partial class ContactUsWindow : Window
     {
-        public MakeOrderWindow()
+        public ContactUsWindow()
         {
             InitializeComponent();
-        }
-
-        private void btnConfirmOrder_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

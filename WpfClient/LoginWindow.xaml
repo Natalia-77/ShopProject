@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
-        Title="Вхід для адміністратора" Height="300" Width="220">
+        Title="Вхід для адміністратора" Height="309" Width="233">
     <Grid Margin="10" DataContext="{Binding Source={StaticResource Photos}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200" />
@@ -14,9 +14,9 @@
             <RowDefinition Height="250" />
         </Grid.RowDefinitions>
         <StackPanel>
-            <Label Margin="0,20,0,0"> Введіть e-mail:</Label>
+            <Label Margin="0,20,0,0">Введіть e-mail:</Label>
             <TextBox Height="30" x:Name="tbEmail"/>
-            <Label Margin="0,20,0,0"> Введіть пароль:</Label>
+            <Label Margin="0,20,0,0">Введіть пароль:</Label>
             <TextBox Height="30" x:Name="tbPassword"/>
             <Button x:Name="btnLogin" Height="40" Width="150" Margin="0,40,0,0" Click="btnLogin_Click">
                 Вхід
