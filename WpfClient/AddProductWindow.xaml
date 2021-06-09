@@ -1,0 +1,49 @@
+﻿<Window x:Class="WpfClient.AddProductWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfClient"
+        mc:Ignorable="d"
+        Title="Додавання нового товару" Height="341" Width="335">
+    <DockPanel Margin="10">
+        <StackPanel>
+            <WrapPanel Margin="5">
+                <Label Content="Назва товару:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                       Height="30" Width="150"/>
+                <TextBox Name="tbName" Width="150"/>
+            </WrapPanel>
+
+            <WrapPanel Margin="5">
+                <Label Content="Детальна інформація:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                       Height="30" Width="150"/>
+                <TextBox Name="tbDetails" AcceptsReturn="True" 
+                         HorizontalAlignment="Left" Height="90" 
+                         TextWrapping="Wrap" VerticalAlignment="Top" 
+                         Width="150"/>
+            </WrapPanel>
+
+            <WrapPanel Margin="5">
+                <Label Content="Ціна:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                       Height="30" Width="150"/>
+                <TextBox Name="tbPrice" Width="150"/>
+            </WrapPanel>
+            
+            <WrapPanel Margin="5">
+                <Label Content="Зображення:" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center" 
+                       Height="40" 
+                       Width="150"/>
+                <Button Name="btnSelectImage" 
+                        Width="150" 
+                        Content="Вибрати" 
+                        Click="btnSelectImage_Click" />
+            </WrapPanel>
+            <Button Name="btnSaveProduct" 
+                    Height="50" Margin="10,10" 
+                    Content="Зберегти товар" 
+                    Click="btnSaveProduct_Click" />
+        </StackPanel>
+    </DockPanel>
+</Window>
