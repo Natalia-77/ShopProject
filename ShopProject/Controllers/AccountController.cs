@@ -6,8 +6,11 @@ using ShopProject.Constants;
 using ShopProject.Entities;
 using ShopProject.Entities.Identity;
 using ShopProject.Services;
+using ShopProject.UIHelper;
 using ShopProject.ViewModels;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -94,15 +97,21 @@ namespace ShopProject.Controllers
         //[Authorize(Roles = Roles.Admin)]
         public IActionResult AddProduct([FromBody] ProductModel model)
         {
-
             _context.Products.Add(new Products
             {
                 Name = model.Name,
                 Description=model.Description,
                 Price=model.Price,              
                 Image = model.Image
-
             });
+
+            var dir = Directory.GetCurrentDirectory();
+            var ext = Path.GetExtension(model.Image);
+            var dirSave = Path.Combine(dir, "Photos");
+            var imageName = Path.GetRandomFileName() + ext;
+            var imageSaveFolder = Path.Combine(dirSave, imageName);
+            var imagen = model.Image.LoadBase64();
+            imagen.Save(imageSaveFolder, ImageFormat.Jpeg);
 
             _context.SaveChanges();
             return Ok();
