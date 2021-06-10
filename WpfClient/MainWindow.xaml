@@ -114,22 +114,28 @@
         <DockPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="15,0,0,0">
             <GroupBox>
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                    <StackPanel>
-                        <Label Style="{StaticResource MetadataHeader}">Назва:</Label>
-                        <TextBlock x:Name="tbName" FontSize="18"  HorizontalAlignment="Center" />
+                    <DockPanel>
+                        <StackPanel DockPanel.Dock="Top">
+                            <Label Style="{StaticResource MetadataHeader}">Назва:</Label>
+                            <TextBlock x:Name="tbName" FontSize="18"  HorizontalAlignment="Center" />
 
-                        <Label Style="{StaticResource MetadataHeader}">Ціна (грн):</Label>
-                        <TextBlock x:Name="tbPrice" FontSize="22" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center" />
+                            <Label Style="{StaticResource MetadataHeader}">Ціна (грн):</Label>
+                            <TextBlock x:Name="tbPrice" FontSize="22" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center" />
 
-                        <Label Style="{StaticResource MetadataHeader}">Опис товару:</Label>
-                        <TextBlock x:Name="tbDescription" TextWrapping="Wrap" FontSize="14"  HorizontalAlignment="Center" />
+                            <Label Style="{StaticResource MetadataHeader}">Опис товару:</Label>
+                            <TextBlock x:Name="tbDescription" TextWrapping="Wrap" FontSize="14"  HorizontalAlignment="Center" />
 
-                        <Label Style="{StaticResource MetadataHeader}">Фото:</Label>
-                        <Image Margin="10" Width="200" Height="200" x:Name="imgPhoto">
+                            <Label Style="{StaticResource MetadataHeader}">Фото:</Label>
+                            <Image Margin="10" Width="200" Height="200" x:Name="imgPhoto">
+                            </Image>
+                        </StackPanel>
 
-                        </Image>
+                        <Button DockPanel.Dock="Bottom" x:Name="btnAddToBasket"
+                                Height="50" Content="Додати в кошик" Background="#FF7EE47E" Click="btnAddToBasket_Click"></Button>
 
-                    </StackPanel>
+                    </DockPanel>
+
+                    
                 </ScrollViewer>
             </GroupBox>
 

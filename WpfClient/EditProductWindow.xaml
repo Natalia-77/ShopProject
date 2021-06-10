@@ -5,43 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
-        Title="Редагування інформації про товар" Height="341" Width="335">
-    <DockPanel Margin="10">
-        <StackPanel>
-            <WrapPanel Margin="5">
-                <Label Content="Назва товару:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+        Title="Редагування інформації про товар" Height="350" Width="350">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel Margin="10">
+            <StackPanel>
+                <WrapPanel Margin="5">
+                    <Label Content="Назва товару:" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Height="30" Width="150"/>
-                <TextBox Name="tbName" Width="150"/>
-            </WrapPanel>
+                    <TextBox Name="tbName" Width="150"/>
+                </WrapPanel>
 
-            <WrapPanel Margin="5">
-                <Label Content="Детальна інформація:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                <WrapPanel Margin="5">
+                    <Label Content="Детальна інформація:" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Height="30" Width="150"/>
-                <TextBox Name="tbDetails" AcceptsReturn="True" 
+                    <TextBox Name="tbDetails" AcceptsReturn="True" 
                          HorizontalAlignment="Left" Height="90" 
                          TextWrapping="Wrap" VerticalAlignment="Top" 
                          Width="150"/>
-            </WrapPanel>
+                </WrapPanel>
 
-            <WrapPanel Margin="5">
-                <Label Content="Ціна:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                <WrapPanel Margin="5">
+                    <Label Content="Ціна:" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Height="30" Width="150"/>
-                <TextBox Name="tbPrice" Width="150"/>
-            </WrapPanel>
+                    <TextBox Name="tbPrice" Width="150"/>
+                </WrapPanel>
 
-            <WrapPanel Margin="5">
-                <Label Content="Зображення:" 
+                <WrapPanel Margin="5">
+                    <Label Content="Зображення:" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center" 
                        Height="40" 
                        Width="150"/>
-                <Button Name="btnSelectImage" 
+                    <Button Name="btnSelectImage" 
                         Width="150" 
                         Content="Вибрати" Click="btnSelectImage_Click"/>
-            </WrapPanel>
-            <Button Name="btnSaveProduct" 
+                </WrapPanel>
+                <Button Name="btnSaveProduct" 
                     Height="50" Margin="10,10" 
                     Content="Зберегти зміни" Click="btnSaveProduct_Click"/>
-        </StackPanel>
-    </DockPanel>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+    
 </Window>

@@ -8,16 +8,16 @@
         Title="Вхід для адміністратора" Height="309" Width="233">
     <Grid Margin="10" DataContext="{Binding Source={StaticResource Photos}}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="250" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel>
             <Label Margin="0,20,0,0">Введіть e-mail:</Label>
-            <TextBox Height="30" x:Name="tbEmail"/>
+            <TextBox Height="30" Width="180" x:Name="tbEmail"/>
             <Label Margin="0,20,0,0">Введіть пароль:</Label>
-            <TextBox Height="30" x:Name="tbPassword"/>
+            <TextBox Height="30" Width="180" x:Name="tbPassword"/>
             <Button x:Name="btnLogin" Height="40" Width="150" Margin="0,40,0,0" Click="btnLogin_Click">
                 Вхід
             </Button>

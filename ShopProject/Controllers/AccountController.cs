@@ -91,7 +91,7 @@ namespace ShopProject.Controllers
 
         [HttpPost]
         [Route("add")]
-        [Authorize(Roles = Roles.Admin)]
+        //[Authorize(Roles = Roles.Admin)]
         public IActionResult AddProduct([FromBody] ProductModel model)
         {
 

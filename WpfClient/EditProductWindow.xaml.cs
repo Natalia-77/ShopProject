@@ -29,7 +29,7 @@ namespace WpfClient
 
         private void btnSaveProduct_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }

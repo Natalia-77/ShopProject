@@ -35,6 +35,7 @@ namespace WpfClient
         {
 
             _ = PostRequest();
+            Close();
                     
         }
 

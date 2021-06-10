@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
-        Title="Панель адміністратора" Height="450" Width="800">
+        Title="Панель адміністратора" Height="450" Width="800" Loaded="Window_Loaded">
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Right" Margin="10,0,0,0" Width="100">
             <Button Name="btnAdd" Content="Додати" Margin="0,0,0,10" Height="40" Click="btnAdd_Click"/>
@@ -21,7 +21,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="40" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Назва" Width="160" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Опис товару" Width="370" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="Опис товару" Width="360" Binding="{Binding Description}"/>
                 <DataGridTextColumn Header="Ціна" Width="100" Binding="{Binding Price}"/>
 
             </DataGrid.Columns>
