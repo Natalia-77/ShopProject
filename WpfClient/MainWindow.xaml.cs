@@ -112,21 +112,30 @@ namespace WpfClient
         private void btnContact_Click(object sender, RoutedEventArgs e)
         {
             ContactUsWindow cuw = new ContactUsWindow();
+            cuw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            cuw.Owner = this;
             cuw.ShowDialog();
         }
 
         private void btnBasket_Click(object sender, RoutedEventArgs e)
         {
             BasketWindow bw = new BasketWindow();
+            bw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            bw.Owner = this;
             bw.ShowDialog();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
+            loginWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            loginWindow.Owner = this;
             loginWindow.ShowDialog();
         }
 
-        
+        private void btnAddToBasket_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

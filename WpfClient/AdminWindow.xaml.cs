@@ -28,8 +28,12 @@ namespace WpfClient
         //private string  _token { get; set; }
         public AdminWindow( )
         {
-            InitializeComponent();
-           // _token = token;
+           InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // _token = token;
             var app = Application.Current as IGetConfiguration;
             var serverUrl = app.Configuration.GetSection("ServerUrl").Value;
 
@@ -41,7 +45,7 @@ namespace WpfClient
             }
 
             //============check============
-           // MessageBox.Show(_token);
+            // MessageBox.Show(_token);
             //=============================
 
 
@@ -83,7 +87,7 @@ namespace WpfClient
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-           
+            Window_Loaded(sender, e);
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -96,5 +100,7 @@ namespace WpfClient
             EditProductWindow edit = new EditProductWindow();
             edit.ShowDialog();
         }
+
+        
     }
 }

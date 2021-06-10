@@ -21,14 +21,14 @@ namespace WpfClient
     /// </summary>
     public partial class LoginWindow : Window
     {
-        private string _login;
-        private string _password;
+        //private string _login;
+        //private string _password;
 
         public LoginWindow()
         {
             InitializeComponent();
-            _login = tbEmail.Text;
-            _password = tbPassword.Text;
+            //_login = tbEmail.Text;
+            //_password = tbPassword.Text;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -61,11 +61,11 @@ namespace WpfClient
               
                 var res = stream.ReadToEnd();
                 var tokens_answer = JsonConvert.DeserializeObject<AuthToken>(res);
-                MessageBox.Show(tokens_answer.Token);
+                //MessageBox.Show(tokens_answer.Token);
 
+                Close();
                 AdminWindow adminWindow = new AdminWindow();
                 adminWindow.ShowDialog();
-
             }
             catch (Exception)
             {
