@@ -33,7 +33,7 @@ namespace WpfClient
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show("yes");
+            
             var app = App.Current as IGetConfiguration;
             var serverUrl = app.Configuration.GetSection("ServerUrl").Value;
             WebRequest request = WebRequest.Create($"{serverUrl}Account");
@@ -60,13 +60,17 @@ namespace WpfClient
                 using var stream = new StreamReader( responce.GetResponseStream());
               
                 var res = stream.ReadToEnd();
-                var errors = JsonConvert.DeserializeObject<AuthToken>(res);
-                MessageBox.Show(errors.Token);
-                
+                var tokens_answer = JsonConvert.DeserializeObject<AuthToken>(res);
+                MessageBox.Show(tokens_answer.Token);
+
+                AdminWindow adminWindow = new AdminWindow();
+                adminWindow.ShowDialog();
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message.ToString());
+                // MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show("You are not admin!");
                 
             }
         }
