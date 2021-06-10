@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
+using ShopProject.UIHelper;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +23,8 @@ namespace WpfClient
     /// </summary>
     public partial class AddProductWindow : Window
     {
+        public static string New_FileName { get; set; }
+
         public AddProductWindow()
         {
             InitializeComponent();
@@ -28,7 +32,20 @@ namespace WpfClient
 
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
 
+            if (dlg.ShowDialog() == true)
+            {
+                try
+                {
+                    New_FileName = dlg.FileName;
+                }
+                catch
+                {
+                    MessageBox.Show("Неможливо відкрити!");
+                }
+            }
         }
 
         private void btnSaveProduct_Click(object sender, RoutedEventArgs e)
@@ -41,15 +58,14 @@ namespace WpfClient
 
         public async Task<bool> PostRequest()
         {
-           // string base64 = ImageConverterBase.ConvertToBase(File_base);
-            //WebRequest request = WebRequest.Create("http://localhost:5000/api/Flowers/add");
+            string base64 = ImageHelper.ImageConvertToBase64(New_FileName);
             var applic = Application.Current as IGetConfiguration;
             var serv_url = applic.Configuration.GetSection("ServerUrl").Value;
+            
             WebRequest request = WebRequest.Create($"{serv_url}Account/add");
             {
                 request.Method = "POST";
                 request.ContentType = "application/json";
-
             };
             float.TryParse(tbPrice.Text, out float resparse);
             string json = JsonConvert.SerializeObject(new
@@ -57,7 +73,7 @@ namespace WpfClient
                 Name = tbName.Text.ToString(),
                 Description=tbDetails.Text.ToString(),
                 Price = resparse,
-                Image = "6.jpg"
+                Image = base64
             });
 
             byte[] bytes = Encoding.UTF8.GetBytes(json);
