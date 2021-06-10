@@ -101,8 +101,8 @@ namespace WpfClient
             tbName.Text = prod.Name;
             tbPrice.Text = prod.Price.ToString();
             tbDescription.Text = prod.Description;
-            Uri fileUri = new Uri(prod.Image);
-            imgPhoto.Source = new BitmapImage(fileUri);
+             Uri fileUri = new Uri(prod.Image);
+             imgPhoto.Source = new BitmapImage(fileUri);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

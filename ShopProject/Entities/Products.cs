@@ -24,11 +24,8 @@ namespace ShopProject.Entities
         public string Image { get; set; }
 
        // public virtual ICollection<Orders> Orders { get; set; }
-
-
         //[ForeignKey("Orders")]
         //public int OrdersId { get; set; }      
-
         //public virtual Orders Orders { get; set; }
 
     }
