@@ -6,10 +6,7 @@
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
         Title="Магазин канцтоварів &quot;Бюрократ&quot;" Height="600" Width="800">
-    <!--<Grid>
-        <Button Name="btn_get_token" Content="Get token" HorizontalAlignment="Left" 
-                Margin="115,104,0,0" VerticalAlignment="Top" Width="115" Height="35" Click="Btn_get_token"/>
-    </Grid>-->
+    
     <Window.Resources>
         <!-- Main photo catalog view -->
         <Style TargetType="{x:Type ListBox}" x:Key="PhotoListBoxStyle">
