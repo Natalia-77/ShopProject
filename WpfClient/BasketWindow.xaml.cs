@@ -17,14 +17,22 @@ namespace WpfClient
     /// </summary>
     public partial class BasketWindow : Window
     {
-        public BasketWindow()
+        public List<OrderList> OrdList { get; set; }
+        public BasketWindow(List<OrderList> ol)
         {
             InitializeComponent();
+     
+            OrdList = new List<OrderList>(ol);
+           
+            dgOrder.ItemsSource = OrdList;
         }
 
         private void btnMakeOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            MakeOrderWindow mow = new MakeOrderWindow();
+            mow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            mow.Owner = this;
+            mow.ShowDialog();
         }
     }
 }

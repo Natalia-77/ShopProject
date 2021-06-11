@@ -5,34 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfClient"
         mc:Ignorable="d"
-        Title="Оформлення замовлення" Height="281" Width="400">
-    <DockPanel Margin="10">
-        <StackPanel>
-            <WrapPanel Margin="5">
-                <Label Content="Вкажіть прізвище та ім'я:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+        Title="Оформлення замовлення" Height="300" Width="420">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel Margin="10">
+            <StackPanel>
+                <WrapPanel Margin="5">
+                    <Label Content="Вкажіть прізвище та ім'я:" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Height="30" Width="150"/>
-                <TextBox Name="tbSurname" Width="220"/>
-            </WrapPanel>
+                    <TextBox Name="tbSurname" Width="220"/>
+                </WrapPanel>
 
-            <WrapPanel Margin="5">
-                <Label Content="Вкажіть адресу доставки:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                <WrapPanel Margin="5">
+                    <Label Content="Вкажіть адресу доставки:" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Height="30" Width="150"/>
-                <TextBox Name="tbAdress" AcceptsReturn="True" 
+                    <TextBox Name="tbAdress" AcceptsReturn="True" 
                          HorizontalAlignment="Left" Height="90" 
                          TextWrapping="Wrap" VerticalAlignment="Top" 
                          Width="220"/>
-            </WrapPanel>
+                </WrapPanel>
 
-            <WrapPanel Margin="5">
-                <Label Content="Вкажіть свій e-mail:" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                <WrapPanel Margin="5">
+                    <Label Content="Вкажіть свій e-mail:" HorizontalAlignment="Left" VerticalAlignment="Center" 
                        Height="30" Width="150"/>
-                <TextBox Name="tbEmail" Width="220"/>
-            </WrapPanel>
+                    <TextBox Name="tbEmail" Width="220"/>
+                </WrapPanel>
 
-            
-            <Button Name="btnConfirmOrder" 
+
+                <Button Name="btnConfirmOrder" 
                     Height="50" Margin="5,10" 
                     Content="Підтвердити замовлення" Click="btnConfirmOrder_Click"  />
-        </StackPanel>
-    </DockPanel>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
 </Window>
