@@ -18,12 +18,21 @@ namespace ShopProject.UIHelper
             string base64String = Convert.ToBase64String(imageBytes);
             return base64String;
         }
-        public static Bitmap LoadBase64(this string base64)
+        public static Bitmap LoadBase64(this string base64String)
         {
-            byte[] bytes = Convert.FromBase64String(base64);
+            byte[] bytes = Convert.FromBase64String(base64String);
             using var ms = new MemoryStream(bytes, 0, bytes.Length);
             Image image = Image.FromStream(ms, true);
             return new Bitmap(image);
+
+            //byte[] bytes = Convert.FromBase64String(base64);
+            //Image image;
+            //using (MemoryStream ms = new MemoryStream(bytes))
+            //{
+            //    image = Image.FromStream(ms);
+            //}
+            // return new Bitmap(image);
+
         }
     }
 }

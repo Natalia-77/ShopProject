@@ -23,7 +23,7 @@ namespace WpfClient
     {
         //private string _login;
         //private string _password;
-
+        public string _token_prop { get; set; }
         public LoginWindow()
         {
             InitializeComponent();
@@ -61,10 +61,11 @@ namespace WpfClient
               
                 var res = stream.ReadToEnd();
                 var tokens_answer = JsonConvert.DeserializeObject<AuthToken>(res);
-                //MessageBox.Show(tokens_answer.Token);
+               // MessageBox.Show(tokens_answer.Token);
+                _token_prop = tokens_answer.Token;
 
                 Close();
-                AdminWindow adminWindow = new AdminWindow();
+                AdminWindow adminWindow = new AdminWindow(_token_prop);
                 adminWindow.ShowDialog();
             }
             catch (Exception)
