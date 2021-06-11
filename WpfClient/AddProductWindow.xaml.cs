@@ -23,17 +23,20 @@ namespace WpfClient
     /// </summary>
     public partial class AddProductWindow : Window
     {
-        public static string New_FileName { get; set; }
-
-        public AddProductWindow()
+        public  string New_FileName { get; set; }
+        public string _tok { get; set; }
+        public AddProductWindow(string tok)
         {
             InitializeComponent();
+            _tok = tok;
+
         }
 
         private void btnSelectImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
+            dlg.Filter = "Image Files(*.BMP;*.JPG;*.GIF;*.PNG)|*.BMP;*.JPG;*.GIF;" +
+                "*.PNG|All files (*.*)|*.*";
 
             if (dlg.ShowDialog() == true)
             {
@@ -66,6 +69,8 @@ namespace WpfClient
             {
                 request.Method = "POST";
                 request.ContentType = "application/json";
+                request.PreAuthenticate = true;
+                request.Headers.Add("Authorization", $"Bearer {_tok} ");
             };
             float.TryParse(tbPrice.Text, out float resparse);
             string json = JsonConvert.SerializeObject(new

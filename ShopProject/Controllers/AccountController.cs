@@ -9,6 +9,7 @@ using ShopProject.Services;
 using ShopProject.UIHelper;
 using ShopProject.ViewModels;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -94,24 +95,31 @@ namespace ShopProject.Controllers
 
         [HttpPost]
         [Route("add")]
-        //[Authorize(Roles = Roles.Admin)]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult AddProduct([FromBody] ProductModel model)
         {
+
+            
+
+            var dir = Directory.GetCurrentDirectory();
+            //var ext = Path.GetExtension(model.Image);
+            var dirSave = Path.Combine(dir, "Photos");
+            var imageName = Path.GetRandomFileName() + ".jpg";
+            var imageSaveFolder = Path.Combine(dirSave, imageName);
+            var imagen =model.Image.LoadBase64();
+            imagen.Save(imageSaveFolder);
+
+
             _context.Products.Add(new Products
             {
                 Name = model.Name,
-                Description=model.Description,
-                Price=model.Price,              
-                Image = model.Image
+                Description = model.Description,
+                Price = model.Price,
+                Image = _url +imageName
+                //Image=model.Image
             });
 
-            var dir = Directory.GetCurrentDirectory();
-            var ext = Path.GetExtension(model.Image);
-            var dirSave = Path.Combine(dir, "Photos");
-            var imageName = Path.GetRandomFileName() + ext;
-            var imageSaveFolder = Path.Combine(dirSave, imageName);
-            var imagen = model.Image.LoadBase64();
-            imagen.Save(imageSaveFolder, ImageFormat.Jpeg);
+
 
             _context.SaveChanges();
             return Ok();

@@ -25,10 +25,11 @@ namespace WpfClient
     {
         //private EFContext _context = new EFContext();
        // private ObservableCollection<Products> _products = new ObservableCollection<Products>();
-        //private string  _token { get; set; }
-        public AdminWindow( )
+        public string  _token { get; set; }
+        public AdminWindow(string token )
         {
            InitializeComponent();
+            _token = token;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -81,7 +82,8 @@ namespace WpfClient
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddProductWindow add= new AddProductWindow();
+            AddProductWindow add= new AddProductWindow(_token);
+            //MessageBox.Show(_token);
             add.ShowDialog();
         }
 
