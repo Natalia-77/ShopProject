@@ -116,7 +116,7 @@ namespace WpfClient
                     var prod_view = dgSimple.SelectedItem as Products;
                     int id = prod_view.Id;
                     _id = id;
-                    MessageBox.Show(_id.ToString());
+                   // MessageBox.Show(_id.ToString());
                 }
             }
             _ = DeleteRequest();
@@ -131,7 +131,7 @@ namespace WpfClient
                     var prod_view = dgSimple.SelectedItem as Products;
                     int id = prod_view.Id;
                     _id = id;
-                    MessageBox.Show(_id.ToString());
+                    //MessageBox.Show(_id.ToString());
                 }
 
                 EditProductWindow edit = new EditProductWindow(_id, _token);
