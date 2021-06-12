@@ -16,8 +16,7 @@ namespace ShopProject.Entities
 
         }
 
-        public DbSet<Products> Products { get; set; }
-        //public DbSet<Orders> Orders { get; set; }
+        public DbSet<Products> Products { get; set; }       
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -38,20 +37,7 @@ namespace ShopProject.Entities
                     .IsRequired();
             });
 
-            //object p = builder.Entity<Orders>(order =>
-            //{
-            //    order.HasKey(ur => new { ur.ProductId, ur.UsersId });
-
-            //    order.HasOne(ur => ur.Products)
-            //        .WithMany(r => r.Orders)
-            //        .HasForeignKey(ur => ur.ProductId)
-            //        .IsRequired();
-
-            //    order.HasOne(ur => ur.Users)
-            //        .WithMany(r => r.Orders)
-            //        .HasForeignKey(ur => ur.UsersId)
-            //        .IsRequired();
-            //});
+           
         }
     }
 

@@ -1,11 +1,9 @@
-﻿
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using ShopProject.Constants;
 using ShopProject.Entities;
 using ShopProject.Entities.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -49,35 +47,33 @@ namespace ShopProject
                         {
                              Name="Олівці",
                              Description = "Різнокольорові олівці відомої фірми Марко (Чехія). Набір 24 кольори. Яскраві, приємні для сприйняття",
-                             Price=35,
-                             //Image="01.jpg"
-                            //Image="https://nat77.ga/img/9.jpg" ,
-
+                             Price=35                         
+                           
                         },
                         new Products
                         {
                             Name="Набір",
                             Description = "Набір канцелярського приладдя для школярів. Включає кольорові олівці, фломастери, фарби акварельні, гуаші, лінійки, клей",
-                            Price=305,
-                            //Image="02.jpg"
+                            Price=305
+                           
                         },
                         new Products {
                             Name="Офісне приладдя",
                             Description = "Набір канцтоварів для офісу. До складу входять: олівці, ручки, підставка, блокноти, калькулятор, лінійка",
-                            Price=520,
-                           // Image="03.jpg"
+                            Price=520
+                           
                         },
                         new Products {
                             Name="Фломастери",
                             Description = "Набір різнокольорових фломастерів чеської фірми Кох-і-нор. 36 фломастерів відмінної якості з екологічними барвниками",
-                            Price=75,
-                           // Image="04.jpg"
+                            Price=75
+                           
                         },
                         new Products {
                             Name="Палички",
                             Description = "Палички для лічби. Призначені для учнів дошкільного та молодшого шкільного віку. 40 штук",
-                            Price=16,
-                           // Image="05.jpg"
+                            Price=16
+                           
                         }
 
                 };

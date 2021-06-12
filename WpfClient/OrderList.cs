@@ -8,13 +8,6 @@ namespace WpfClient
     {
         public string Name { get; set; }
         public float Price { get; set; }
-
-        public OrderList Copy()
-        {
-            var result = new OrderList();
-            result.Name = this.Name;
-            result.Price = this.Price;
-            return result;
-        }
+               
     }
 }
