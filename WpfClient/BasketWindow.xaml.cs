@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShopProject.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,14 +18,16 @@ namespace WpfClient
     /// </summary>
     public partial class BasketWindow : Window
     {
-        public List<OrderList> OrdList { get; set; }
-        public BasketWindow(List<OrderList> ol)
+        public List<Products> _products { get; set; }
+        public float _sum { get; set; }
+        public BasketWindow(List<Products> products, float sum)
         {
             InitializeComponent();
-     
-            OrdList = new List<OrderList>(ol);
-           
-            dgOrder.ItemsSource = OrdList;
+            _products = products;
+            _sum = sum;
+            dgOrder.ItemsSource = _products;
+            tbSumm.Text = sum.ToString();
+
         }
 
         private void btnMakeOrder_Click(object sender, RoutedEventArgs e)

@@ -21,14 +21,11 @@ namespace WpfClient
     /// </summary>
     public partial class LoginWindow : Window
     {
-        //private string _login;
-        //private string _password;
         public string _token_prop { get; set; }
         public LoginWindow()
         {
             InitializeComponent();
-            //_login = tbEmail.Text;
-            //_password = tbPassword.Text;
+           
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -43,9 +40,7 @@ namespace WpfClient
             };
             string json = JsonConvert.SerializeObject(new
             {
-                //Email = "user@gmail.com",
                 Email = tbEmail.Text,
-                //Password = "qwerty"
                 Password = tbPassword.Text
             });
             byte[] bytes = Encoding.UTF8.GetBytes(json);

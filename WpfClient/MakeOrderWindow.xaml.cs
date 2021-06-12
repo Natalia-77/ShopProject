@@ -24,7 +24,7 @@ namespace WpfClient
 
         private void btnConfirmOrder_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show("Thank you for your order!");
         }
     }
 }

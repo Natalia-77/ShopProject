@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,9 +24,9 @@ namespace WpfClient
     /// </summary>
     public partial class AdminWindow : Window
     {
-        //private EFContext _context = new EFContext();
-       // private ObservableCollection<Products> _products = new ObservableCollection<Products>();
         public string  _token { get; set; }
+        public int _id { get; set; }
+        public Products prod { get; set; }
         public AdminWindow(string token )
         {
            InitializeComponent();
@@ -33,8 +34,11 @@ namespace WpfClient
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
+        {            
+            Webrequest();            
+        }
+        public void Webrequest()
         {
-            // _token = token;
             var app = Application.Current as IGetConfiguration;
             var serverUrl = app.Configuration.GetSection("ServerUrl").Value;
 
@@ -45,24 +49,7 @@ namespace WpfClient
                 client.DownloadDataAsync(url);
             }
 
-            //============check============
-            // MessageBox.Show(_token);
-            //=============================
-
-
-            //var list = _context.Products.AsQueryable()
-            //    .Select(x => new Products()
-            //    {
-            //        Id = x.Id,
-            //        Name = x.Name,
-            //        Description = x.Description,
-            //        Price = x.Price
-            //    })
-            //    .ToList();
-            //_products = new ObservableCollection<Products>(list);
-            //dgSimple.ItemsSource = _products;
         }
-
         public void asyncWeb_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e)
         {
             try
@@ -92,15 +79,65 @@ namespace WpfClient
             Window_Loaded(sender, e);
         }
 
+        public async Task<bool> DeleteRequest()
+        {
+            //WebRequest request = WebRequest.Create($"http://localhost:5000/api/Flowers/{_Id}");
+            var applic = Application.Current as IGetConfiguration;
+            var serv_url = applic.Configuration.GetSection("ServerUrl").Value;
+
+            WebRequest request = WebRequest.Create($"{serv_url}Account/{_id}");
+            {
+                request.Method = "DELETE";
+                request.ContentType = "application/json";
+                request.PreAuthenticate = true;
+                request.Headers.Add("Authorization", $"Bearer {_token} ");
+
+                try
+                {
+                    await request.GetResponseAsync();
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                    return false;
+                }
+
+            };
+        }
+
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgSimple.SelectedItem != null)
+            {
+                if (dgSimple.SelectedItem is Products)
+                {
+                    var prod_view = dgSimple.SelectedItem as Products;
+                    int id = prod_view.Id;
+                    _id = id;
+                    MessageBox.Show(_id.ToString());
+                }
+            }
+            _ = DeleteRequest();
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            EditProductWindow edit = new EditProductWindow();
-            edit.ShowDialog();
+            if (dgSimple.SelectedItem != null)
+            {
+                if (dgSimple.SelectedItem is Products)
+                {
+                    var prod_view = dgSimple.SelectedItem as Products;
+                    int id = prod_view.Id;
+                    _id = id;
+                    MessageBox.Show(_id.ToString());
+                }
+
+                EditProductWindow edit = new EditProductWindow(_id, _token);
+                edit.ShowDialog();
+            }
+           
         }
 
         

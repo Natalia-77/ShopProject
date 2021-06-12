@@ -137,8 +137,7 @@ namespace ShopProject
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API");
             });
-
-          // MigrationConfig.ApplyMigrations(app.ApplicationServices);
+         
 
             string images = "Photos";
             var directory = Path.Combine(Directory.GetCurrentDirectory(), images);

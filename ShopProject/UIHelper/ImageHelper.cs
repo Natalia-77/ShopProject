@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace ShopProject.UIHelper
 {
@@ -23,15 +21,7 @@ namespace ShopProject.UIHelper
             byte[] bytes = Convert.FromBase64String(base64String);
             using var ms = new MemoryStream(bytes, 0, bytes.Length);
             Image image = Image.FromStream(ms, true);
-            return new Bitmap(image);
-
-            //byte[] bytes = Convert.FromBase64String(base64);
-            //Image image;
-            //using (MemoryStream ms = new MemoryStream(bytes))
-            //{
-            //    image = Image.FromStream(ms);
-            //}
-            // return new Bitmap(image);
+            return new Bitmap(image);          
 
         }
     }

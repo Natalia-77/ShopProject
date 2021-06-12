@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShopProject.Constants;
@@ -8,9 +7,6 @@ using ShopProject.Entities.Identity;
 using ShopProject.Services;
 using ShopProject.UIHelper;
 using ShopProject.ViewModels;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -38,8 +34,7 @@ namespace ShopProject.Controllers
         }
 
         [HttpGet]
-        [Route("show")]
-        //тут не повинно бути ролі,бо тут вивід товарів для всіх має бути!!!
+        [Route("show")]        
         //[Authorize(Roles = Roles.Admin)]
         public IActionResult action()
         {
@@ -53,43 +48,6 @@ namespace ShopProject.Controllers
                    x.Description
                });
 
-
-            //var list = new List<Products>()
-            //{
-            //    new Products
-            //    {
-            //        Name="Олівці",
-            //        Description = "Різнокольорові олівці відомої фірми Марко (Чехія). Набір 24 кольори. Яскраві, приємні для сприйняття",
-            //        Price=35,
-            //        Image=_url+"01.jpg"
-            //    },
-            //    new Products
-            //    {
-            //        Name="Набір",
-            //        Description = "Набір канцелярського приладдя для школярів. Включає кольорові олівці, фломастери, фарби акварельні, гуаші, лінійки, клей",
-            //        Price=305,
-            //        Image=_url+"02.jpg"
-            //    },
-            //    new Products {
-            //        Name="Офісне приладдя",
-            //        Description = "Набір канцтоварів для офісу. До складу входять: олівці, ручки, підставка, блокноти, калькулятор, лінійка",
-            //        Price=520,
-            //        Image=_url+"03.jpg"
-            //       },
-            //    new Products {
-            //        Name="Фломастери",
-            //        Description = "Набір різнокольорових фломастерів чеської фірми Кох-і-нор. 36 фломастерів відмінної якості з екологічними барвниками",
-            //        Price=75,
-            //        Image=_url+"04.jpg"
-            //        },
-            //    new Products {
-            //        Name="Палички",
-            //        Description = "Палички для лічби. Призначені для учнів дошкільного та молодшого шкільного віку. 40 штук",
-            //        Price=16,
-            //        Image=_url+"05.jpg"
-            //        }
-
-            //};
             return Ok(list);
         }
 
@@ -97,12 +55,9 @@ namespace ShopProject.Controllers
         [Route("add")]
         [Authorize(Roles = Roles.Admin)]
         public IActionResult AddProduct([FromBody] ProductModel model)
-        {
+        {           
 
-            
-
-            var dir = Directory.GetCurrentDirectory();
-            //var ext = Path.GetExtension(model.Image);
+            var dir = Directory.GetCurrentDirectory();           
             var dirSave = Path.Combine(dir, "Photos");
             var imageName = Path.GetRandomFileName() + ".jpg";
             var imageSaveFolder = Path.Combine(dirSave, imageName);
@@ -128,7 +83,6 @@ namespace ShopProject.Controllers
 
 
         [HttpPost]
-        //тут теж,бо на даному етапі ми просто шукаємо користувача.
        // [Authorize(Roles = Roles.Admin)]
         public async Task<IActionResult> Post([FromBody]UserModel userModel)
         {
@@ -147,7 +101,62 @@ namespace ShopProject.Controllers
                 });             
 
         }
+        [HttpPut("{id}")]
+        [Authorize(Roles = Roles.Admin)]
+        public IActionResult Update(int id, [FromBody] Products prod)
+        {
+            var res = _context.Products.FirstOrDefault(x => x.Id == id);
+            if (prod == null)
+            {
+                return BadRequest("Error data");
+            }
 
+            var dir = Directory.GetCurrentDirectory();            
+            var dirSave = Path.Combine(dir, "Photos");
+            var imageName = Path.GetRandomFileName() + ".jpg";
+            var imageSaveFolder = Path.Combine(dirSave, imageName);
+            if (!prod.Image.Contains(".jpg"))
+            {
+                var imagen = prod.Image.LoadBase64();
+                imagen.Save(imageSaveFolder);
+                res.Image = _url + imageName;
+            }
+            else
+            {
+                res.Image = prod.Image;
+            }
+
+            res.Name = prod.Name;
+            res.Description = prod.Description;
+            res.Price = prod.Price;
+
+
+            if (res == null)
+            {
+                return NotFound();
+            }
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = Roles.Admin)]
+        public IActionResult Delete(int id)
+        {
+            var del_item = _context.Products.Find(id);
+
+            if (del_item == null)
+            {
+                return NotFound();
+            }
+
+            _context.Products.Remove(del_item);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
 
 
     }

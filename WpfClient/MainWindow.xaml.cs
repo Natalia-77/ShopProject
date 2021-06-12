@@ -29,13 +29,15 @@ namespace WpfClient
 
     public partial class MainWindow : Window
     {
-        public static List<OrderList> OrdList { get; set; }
-        public static List<OrderList> ToOrdList { get; set; }
+        public Products orders { get; set; }
+        public List<Products> ord { get; set; }
+        public float summ_order { get; set; }
 
-        public ObservableCollection<Products> Products { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            ord = new List<Products>();
             var app = App.Current as IGetConfiguration;
             var serverUrl = app.Configuration.GetSection("ServerUrl").Value;
 
@@ -45,41 +47,7 @@ namespace WpfClient
                 Uri url = new Uri($"{serverUrl}Account/show");
                 client.DownloadDataAsync(url);
             }
-
-            ///Products = new ObservableCollection<Products>
-            ///{
-            ///    new Products { 
-            ///        Name="Олівці",
-            ///        Description = "Різнокольорові олівці відомої фірми Марко (Чехія). Набір 24 кольори. Яскраві, приємні для сприйняття",
-            ///        Price=35, 
-            ///       // Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\01.jpg"
-            ///        },
-            ///    new Products { 
-            ///        Name="Набір",
-            ///        Description = "Набір канцелярського приладдя для школярів. Включає кольорові олівці, фломастери, фарби акварельні, гуаші, лінійки, клей",
-            ///        Price=305,
-            ///        //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\02.jpg"
-            ///       },
-            ///    new Products { 
-            ///        Name="Офісне приладдя",
-            ///        Description = "Набір канцтоварів для офісу. До складу входять: олівці, ручки, підставка, блокноти, калькулятор, лінійка",
-            ///        Price=520,
-            ///        //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\03.jpg"
-            ///       },
-            ///    new Products { 
-            ///        Name="Фломастери",
-            ///        Description = "Набір різнокольорових фломастерів чеської фірми Кох-і-нор. 36 фломастерів відмінної якості з екологічними барвниками",
-            ///        Price=75,
-            ///        //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\04.jpg"
-            ///        },
-            ///    new Products { 
-            ///        Name="Палички",
-            ///        Description = "Палички для лічби. Призначені для учнів дошкільного та молодшого шкільного віку. 40 штук",
-            ///        Price=16,
-            ///        //Image="D:\\ШАГ\\0 Repository\\ShopProject\\ShopProject\\Photos\\05.jpg"
-            ///        }
-            ///};
-            ///productList.ItemsSource = Products;
+           
         }
 
 
@@ -107,15 +75,8 @@ namespace WpfClient
             tbDescription.Text = prod.Description;
             Uri fileUri = new Uri(prod.Image);
             imgPhoto.Source = new BitmapImage(fileUri);
+            orders = prod;
 
-            ToOrdList = new List<OrderList>()
-            {
-                new OrderList()
-                {
-                Name = prod.Name,
-                Price = prod.Price
-                }
-            };
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -132,7 +93,7 @@ namespace WpfClient
 
         private void btnBasket_Click(object sender, RoutedEventArgs e)
         {
-            BasketWindow bw = new BasketWindow(OrdList);
+            BasketWindow bw = new BasketWindow(ord, summ_order);
             bw.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             bw.Owner = this;
             bw.ShowDialog();
@@ -148,7 +109,8 @@ namespace WpfClient
 
         private void btnAddToBasket_Click(object sender, RoutedEventArgs e)
         {
-            OrdList = new List<OrderList>(ToOrdList);
+            ord.Add(orders);
+            summ_order += orders.Price;
         }
     }
 }
