@@ -7,6 +7,7 @@ using ShopProject.Entities.Identity;
 using ShopProject.Services;
 using ShopProject.UIHelper;
 using ShopProject.ViewModels;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,8 +23,8 @@ namespace ShopProject.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private EFContext _context;
-        public string _url = "http://localhost:5000/img/";
-
+        //public string _url = "http://localhost:5000/img/";
+        //public string _url = "http://burokrat.ga/img/";
         public AccountController(IJwtTokenService tokenService, UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager, EFContext context)
         {
@@ -55,9 +56,17 @@ namespace ShopProject.Controllers
         [Route("add")]
         [Authorize(Roles = Roles.Admin)]
         public IActionResult AddProduct([FromBody] ProductModel model)
-        {           
+        {
 
-            var dir = Directory.GetCurrentDirectory();           
+            var shema = Request.Scheme;
+            var port = Request.Host.Port;
+            var domain = Request.Host.Host;
+            if (port != null)
+                domain += ":" + port.ToString();
+            string _url = $"{shema}://{domain}/img/";
+
+            var dir = Directory.GetCurrentDirectory();
+            //var ext = Path.GetExtension(model.Image);
             var dirSave = Path.Combine(dir, "Photos");
             var imageName = Path.GetRandomFileName() + ".jpg";
             var imageSaveFolder = Path.Combine(dirSave, imageName);
@@ -119,7 +128,8 @@ namespace ShopProject.Controllers
             {
                 var imagen = prod.Image.LoadBase64();
                 imagen.Save(imageSaveFolder);
-                res.Image = _url + imageName;
+                //res.Image = _url + imageName;
+                res.Image = prod.Image;
             }
             else
             {

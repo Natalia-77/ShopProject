@@ -97,7 +97,7 @@ namespace WpfClient
                     using var stream = e.Response.GetResponseStream();
                     using var reader = new StreamReader(stream);
                     var responces = reader.ReadToEnd();
-                    MessageBox.Show(responces);
+                   // MessageBox.Show(responces);
                                         
                 }
                 return false;
